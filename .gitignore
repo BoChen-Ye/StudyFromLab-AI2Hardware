@@ -1,0 +1,15 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Ignore .mat files
+*.mat
+
+# Ignore .pth files
+*.pth
+
+# Ignore .idea folder (for JetBrains IDEs)
+.idea/
+
+*.pyc
+*.npy
