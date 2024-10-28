@@ -1,2 +1,12 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore .mat files
+*.mat
+
+# Ignore .pth files
+*.pth
+
+# Ignore .idea folder (for JetBrains IDEs)
+.idea/
+
