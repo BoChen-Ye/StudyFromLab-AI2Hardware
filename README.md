@@ -15,6 +15,7 @@ This lab from [AI Computing System](https://novel.ict.ac.cn/aics/) and [lab gith
 This lab use python to develop **VGG19 network**.
 
 This lab from [AI Computing System](https://novel.ict.ac.cn/aics/) and [lab github](https://github.com/Yuichi1001/2024-AICS-EXP).
+The `imagenet-vgg-verydeep-19.mat` can be download from [website](http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat). 
 
 ### VGG pytorch
 This lab use **pytorch** framework to develop VGG19 network.
