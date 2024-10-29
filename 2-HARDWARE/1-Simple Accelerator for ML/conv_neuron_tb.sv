@@ -17,11 +17,19 @@ conv_neuron  I_CNeuron(
 initial
 begin
     clk = 1'b0 ;
-    @(negedge clk);
-    kernel = 32'h01ff01ff;
-    pixels = {8'h01, 8'hff, 8'h8f, 8'h01};
-    // setting kernel and pixels
-    #20 $finish;
+	
+    @(negedge clk); kernel = 32'h01ffff01;
+	@(negedge clk); pixels = {8'h01,8'hff,8'hff,8'h01};
+	@(negedge clk); pixels = {8'hff,8'h01,8'h01,8'hff};
+	@(negedge clk); pixels = {8'h01,8'h01,8'h01,8'h01};
+	@(negedge clk); pixels = {8'hff,8'hff,8'hff,8'hff};
+	
+	@(negedge clk); kernel = 32'h05fbfb05;
+	@(negedge clk); pixels = {8'h01,8'hff,8'hff,8'h01};
+	@(negedge clk); pixels = {8'hff,8'h01,8'h01,8'hff};
+	@(negedge clk); pixels = {8'h01,8'h01,8'h01,8'h01};
+	@(negedge clk); pixels = {8'hff,8'hff,8'hff,8'hff};
+    #100 $finish;
 end
 
 always

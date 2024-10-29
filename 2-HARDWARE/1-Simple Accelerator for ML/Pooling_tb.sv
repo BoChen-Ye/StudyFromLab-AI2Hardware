@@ -15,17 +15,36 @@ end
 initial
 begin
 
-    convResult = 8'h31;
-    @(negedge clk);
-    convResult = 8'h84;
-    @(negedge clk);
-    // 添加代码，分配其他6个值，每个值一个时钟周期
-    #80 $finish;
+	convResult = 8'h31;
+	@(negedge clk);
+	convResult = 8'h32;
+	@(negedge clk);
+	convResult = 8'h38;
+	@(negedge clk);
+	convResult = 8'h07;
+	@(negedge clk);
+	convResult = 8'h01;
+	@(negedge clk);
+	convResult = 8'h00;
+	@(negedge clk);
+	convResult = 8'h33;
+	@(negedge clk);
+	convResult = 8'hfc;
+
+	#120 $finish; 
 end
 
 initial
 begin
-    // 设置 En 的代码
+	En = 1'b0;
+	repeat(3) @(posedge clk);
+	En = 1'b1;
+	@(posedge clk);
+	En = 1'b0;
+	repeat(3) @(posedge clk);
+	En = 1'b1;
+	@(posedge clk);
+	En = 1'b0;
 end
 
 always

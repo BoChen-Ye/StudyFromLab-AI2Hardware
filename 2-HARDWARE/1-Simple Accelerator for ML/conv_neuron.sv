@@ -11,8 +11,9 @@ logic [7:0] sum;
 integer i;
 
 always_comb begin
+	sum = 0;
     for (i = 0; i < 4; i = i + 1) begin
-		sum = pixels[i] * kernel[i*8 +: 8];
+		sum = sum + pixels[i] * kernel[i*8 +: 8];
 	end
 end
 

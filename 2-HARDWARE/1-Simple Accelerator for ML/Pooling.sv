@@ -11,13 +11,17 @@ logic [2:0][7:0] convolution;
 logic [3:0][7:0] pooledReg;
 
 always_ff @(posedge clk)begin
-    // 代码，用于累加卷积结果到 "convolution" 寄存器中
+    convolution[2] <= convResult;
+	convolution[1] <= convolution[2];
+	convolution[0] <= convolution[1];
 end
 
 always_ff @(negedge clk)begin
-    if (En == 1'b1)
-    begin
-        // 代码，用于将卷积结果加载到 "pooledReg" 中
+    if (En == 1'b1)begin
+		pooledReg[0] <= ($signed(convolution[0]) > 0) ? 8'h01 : 8'hff;
+		pooledReg[1] <= ($signed(convolution[1]) > 0) ? 8'h01 : 8'hff;
+		pooledReg[2] <= ($signed(convolution[2]) > 0) ? 8'h01 : 8'hff;
+		pooledReg[3] <= ($signed(convResult)     > 0) ? 8'h01 : 8'hff;
     end
 end
 
