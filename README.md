@@ -35,7 +35,9 @@ This lab learn how to search for a tiny neural network that can run efficiently 
 This lab from [TinyML and Efficient Deep Learning Computing](https://efficientml.ai) and reference [lab github](https://github.com/yifanlu0227/MIT-6.5940).
 
 ### Other models
-This lab contain some useful models, such as ResNet, MobileNet, YOLO, GRU, Transformer, SNN.
+This lab contain some useful models, such as ResNet, MobileNet, YOLO, LSTM / GRU, Transformer, SNN.
+
+The code of ResNet and  LSTM / GRU from [Deep Learning Models](https://github.com/rasbt/deeplearning-models?tab=readme-ov-file).
 
 ## Architecture
 ### Assembly

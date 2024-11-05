@@ -40,9 +40,9 @@ always @(posedge clk)begin
         dout_parallel <= dout_temp;
         dout_valid    <= 1'b1;
     end
-	//else begin
-	//	dout_valid <= 1'b0;
-	//	dout_parallel<=dout_parallel;
-	//end
+	else begin
+		dout_valid <= 1'b0;
+		dout_parallel<=dout_parallel;
+	end
 end
 endmodule

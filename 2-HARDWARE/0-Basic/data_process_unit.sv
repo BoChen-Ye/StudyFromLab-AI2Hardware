@@ -27,7 +27,7 @@ logic [2*WIDTH-1:0] acc_result;
 
 logic valid0,valid1,valid2,valid3;
 logic ready1,ready2,ready3;
-logic en_s1,en_s2;
+logic en_s0,en_s1,en_s2;
 logic en_fifo;
 logic [2*WIDTH*DEPTH-1:0] dout_parallel;
 
@@ -117,25 +117,31 @@ u_fifo_2(
 
 always_ff @(posedge clk or posedge rstn) begin
     if (!rstn) begin
-		valid0<=1'd0;
+		//valid0<=1'd0;
+		en_s0<=1'd0;
     end 
 	else begin
-		valid0 = !fifo_empty_1 && !fifo_empty_2;
+		//valid0 <= !fifo_empty_1 && !fifo_empty_2;
+		en_s0  <= valid0 && ready1 && fifo_rd_en;
     end
 end
 
-//assign valid0 = !fifo_empty_1 && !fifo_empty_2;
-assign en_s0  = valid0 && ready1 && fifo_rd_en;
+assign valid0 = !fifo_empty_1 && !fifo_empty_2;
+//assign en_s0  = valid0 && ready1 && fifo_rd_en;
 //======================================================================
 // Pipeline Stage 1: Multiplication
 //======================================================================
 always_ff @(posedge clk or posedge rstn) begin
     if (!rstn) begin
-        mult_result <= 1'b0;
-		valid1 <= 1'b0;
+        mult_result <= 1'd0;
+		valid1      <= 'b0;
     end else if (en_s0) begin
         mult_result <= fifo_out_1 * fifo_out_2;
-		valid1 <= 1'b1;
+		valid1      <= 1'b1;
+	end
+	else begin
+		mult_result <= 'd0;
+		valid1      <= 1'b0;
     end
 end
 
@@ -148,10 +154,14 @@ assign en_s1  = valid1 && ready2;
 always_ff @(posedge clk or posedge rstn) begin
     if (!rstn) begin
         acc_result <= 0;
-		valid2 <= 1'b0;
+		valid2     <= 1'b0;
     end else if (en_s1) begin
         acc_result <= acc_result + mult_result;
-		valid2 <= 1'b1;
+		valid2     <= 1'b1;
+	end 
+	else begin 
+		acc_result <= 'd0;
+		valid2     <= 1'b0;
     end
 end
 assign ready2 = ready3 | !valid1;
@@ -169,25 +179,11 @@ u_sipo(
 .din_serial(acc_result),
 .din_valid(en_s2),
 
-.dout_parallel,
+.dout_parallel(data_out),
 .dout_valid(valid3)
 );
-always_ff @(posedge clk or posedge rstn) begin
-    if (!rstn) begin
-		ready3<=1'd0;
-    end 
-	else begin
-		ready3 = !valid3;
-    end
-end
-always_ff @(posedge clk or posedge rstn) begin
-    if (!rstn) begin
-        data_out <= 'd0;
-    end else if (en_s1) begin
-        data_out <= dout_parallel;
-    end
-end
 
+assign ready3 = !valid3;
 assign data_valid = valid3;
 
 endmodule
